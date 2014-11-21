@@ -8,3 +8,6 @@ codetemplate.ipr
 codetemplate.iws
 codetemplate.sublime-project
 codetemplate.sublime-workspace
+/bin
+.springBeans
+.tern-project
