@@ -1,1 +1,10 @@
+.classpath
 .gradle/
+.project
+.settings/
+build/
+codetemplate.iml
+codetemplate.ipr
+codetemplate.iws
+codetemplate.sublime-project
+codetemplate.sublime-workspace
