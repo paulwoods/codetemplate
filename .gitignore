@@ -11,3 +11,4 @@ codetemplate.sublime-workspace
 /bin
 .springBeans
 .tern-project
+/build
