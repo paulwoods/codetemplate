@@ -1,0 +1,25 @@
+
+<div class="row">
+<div class="col-md-12">
+<a class="btn btn-primary" ui-sref="^.list">List</a>
+<a class="btn btn-primary" ui-sref="^.edit({id:TemplateShowController.template.id})">Edit</a>
+<a class="btn btn-danger" ui-sref="^.delete({id:TemplateShowController.template.id})">Delete</a>
+</div>
+</div>
+
+<div spec-header="">Template: {{TemplateShowController.template.name}}</div>
+
+<div spec-instructions="">Instructions go here</div>
+
+<div class="row">
+<div class="col-md-12">
+<h4>Content</h4>
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-12">
+<pre>{{TemplateShowController.template.content}}</pre>
+</div>
+</div>
+

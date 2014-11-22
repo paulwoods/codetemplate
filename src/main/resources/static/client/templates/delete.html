@@ -1,0 +1,29 @@
+
+<div class="row">
+<div class="col-md-12">
+<a class="btn btn-primary" ui-sref="^.list">List</a>
+<a class="btn btn-primary" ui-sref="^.edit({id:TemplateDeleteController.template.id})">Edit</a>
+<a class="btn btn-danger" ui-sref="^.delete({id:TemplateDeleteController.template.id})">Delete</a>
+</div>
+</div>
+
+<div spec-header="">Delete: {{TemplateDeleteController.template.name}}</div>
+
+<div spec-instructions="">Instructions go here</div>
+
+<div class="row">
+<div class="col-md-12">
+<h4>Are you sure you want to delete the template?</h4>
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-3">
+<a class="btn btn-success" ui-sref="^.show({id:TemplateDeleteController.template.id})">No</a>
+</div>
+<div class="col-md-3">
+<button class="btn btn-danger" ng-click="TemplateDeleteController.delete()">Delete It</button>
+</div>
+
+</div>
+

@@ -1,5 +1,25 @@
+
+<div class="row">
+<div class="col-md-12">
+<a class="btn btn-primary" ui-sref="home">Home</a>
+<a class="btn btn-primary" ui-sref="^.create">Create</a>
+</div>
+</div>
+
 <div spec-header="">Templates</div>
 
 <div spec-instructions="">Instructions go here</div>
 
-=-- list --=
+<table class="table table-bordered table-hover table-condensed">
+<thead>
+<tr>
+	<th>Template Name</th>
+</tr>
+</thead>
+<tbody>
+<tr ng-repeat="template in TemplateListController.templates._embedded.templates">
+	<td><a ui-sref="^.show({id:template.id})">{{template.name}}</a></td>
+</tr>
+</tbody>
+</table>
+
