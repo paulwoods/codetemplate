@@ -45,11 +45,16 @@
 			 * add the id number to the object
 			 */
 			list: function(jsonString) {
-				var json = JSON.parse(jsonString)
-				_.each(json._embedded.templates, parseId);
+				var json = JSON.parse(jsonString);
+				
+				if(!_.isEmpty(json)) {
+					_.each(json._embedded[Object.keys(json._embedded)[0]], parseId);
+				}
 				return json;
 			}
+			
 		}
+		
 	})
 	
 	;

@@ -1,0 +1,27 @@
+
+<div class="row">
+<div class="col-md-12">
+<a class="btn btn-primary" ui-sref="^.list">List</a>
+<a class="btn btn-primary" ui-sref="^.edit({id:GroupDeleteController.group.id})">Edit</a>
+<a class="btn btn-danger" ui-sref="^.delete({id:GroupDeleteController.group.id})">Delete</a>
+</div>
+</div>
+
+<div spec-header="">Delete: {{GroupDeleteController.group.name}}</div>
+
+<div spec-instructions="">Instructions go here</div>
+
+<div class="row">
+<div class="col-md-12">
+<h4>Are you sure you want to delete the group?</h4>
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-12">
+<a class="btn btn-success" ui-sref="^.show({id:GroupDeleteController.group.id})">No</a>
+<button class="btn btn-danger" ng-click="GroupDeleteController.delete()">Delete It</button>
+</div>
+
+</div>
+

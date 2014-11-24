@@ -68,16 +68,20 @@
 	.service("Template", function($resource, api, HalUtils) {
 		var url = api + '/templates';
 		return $resource(url, {
-			id: '@id'
+			id: '@id',
+			groupId: '@groupId'
 		}, {
 			create: {method: 'POST', url: url, interceptor: HalUtils.create},
-			
 			read: {method: 'GET', url: url + '/:id', transformResponse: HalUtils.read},
 			update: {method: 'PUT', url: url + '/:id'},
 			remove: {method: 'DELETE', url: url + '/:id'},
-			list: {method: 'GET', url: url, transformResponse: HalUtils.list}
+			list: {method: 'GET', url: url, transformResponse: HalUtils.list},
+			groups: {method: 'GET', url: url + '/:id/groups', transformResponse: HalUtils.list},
+			attach: {method: 'PUT', url: url + '/:id/groups', headers: { 'Content-Type': 'text/uri-list;charset=utf-8' }},
+			detach: {method: 'DELETE', url: url + '/:id/groups/:groupId'}
 		});
-	})
+	}) // {id:vm.selectedId, {groupId:vm.group.id}}
+	
 	
 	.controller('TemplateCreateController', function($state, Template) {
 		var vm = this;
@@ -109,7 +113,6 @@
 				$state.go('^.show', {id:template.id});
 			});
 		};
-		
 	})
 	
 	.controller('TemplateDeleteController', function($state, template) {

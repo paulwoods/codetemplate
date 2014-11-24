@@ -1,0 +1,24 @@
+
+<div class="row">
+<div class="col-md-12">
+<a class="btn btn-primary" ui-sref="^.list">List</a>
+<a class="btn btn-primary" ui-sref="^.edit({id:GroupShowController.group.id})">Edit</a>
+<a class="btn btn-primary" ui-sref="^.attach({id:GroupShowController.group.id})">Attach</a>
+<a class="btn btn-danger" ui-sref="^.delete({id:GroupShowController.group.id})">Delete</a>
+</div>
+</div>
+
+<div spec-header="">Group: {{GroupShowController.group.name}}</div>
+
+<div spec-instructions="">Instructions go here</div>
+
+<h4>Attached Templates</h4>
+
+<p>There are {{GroupShowController.numSelections()}} attached templates.</p>
+
+<ul>
+<li ng-repeat="template in GroupShowController.selected._embedded.templates">
+{{template.name}}
+</li>
+</ul>
+

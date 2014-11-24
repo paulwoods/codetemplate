@@ -1,0 +1,44 @@
+
+<div class="row">
+<div class="col-md-12">
+<a class="btn btn-primary" ui-sref="^.list">List</a>
+<a class="btn btn-primary" ui-sref="^.edit({id:GroupAttachController.group.id})">Edit</a>
+<a class="btn btn-danger" ui-sref="^.delete({id:GroupAttachController.group.id})">Delete</a>
+</div>
+</div>
+
+<div spec-header="">Group: {{GroupAttachController.group.name}}</div>
+
+<div spec-instructions="">Instructions go here</div>
+
+<form>
+
+<div class="row">
+
+	<div class="col-xs-5">
+		<div class="form-group">
+		<label for="template">All Templates</label>
+			<select class="form-control" class="template" name="template" ng-model="GroupAttachController.templateId" size="10" ng-options="template.id as template.name for template in GroupAttachController.templates._embedded.templates"></select>
+		</div>
+	</div>
+
+	<div class="col-xs-2" style="padding-top:3em;">
+		<div class="row row-spacer text-center">
+			<button class="btn btn-primary row-spacer-xs" ng-click="GroupAttachController.attach()">&gt;&gt; Attach</button>
+		</div>
+		<div class="row text-center">
+			<button class="btn btn-primary" ng-click="GroupAttachController.detach()">&lt;&lt; Detach</button>
+		</div>
+	</div>
+
+	<div class="col-xs-5">
+		<div class="form-group">
+		<label for="selected">Selected Templates</label>
+			<select class="form-control" class="selected" name="selected" ng-model="GroupAttachController.selectedId" size="10" ng-options="template.id as template.name for template in GroupAttachController.selected._embedded.templates"></select>
+		</div>
+	</div>
+
+</div>
+
+</form>
+
