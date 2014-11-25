@@ -1,0 +1,45 @@
+
+<div class="row">
+<div class="col-md-12">
+<a class="btn btn-primary" ui-sref="^.list">List</a>
+<a class="btn btn-primary" ui-sref="^.show({id:ProjectAttachController.project.id})">Show</a>
+</div>
+</div>
+
+<div spec-header="">Project: {{ProjectAttachController.project.name}}</div>
+
+<div spec-instructions="">Instructions go here</div>
+
+<form>
+
+<div class="row">
+
+	<div class="col-xs-5">
+		<div class="form-group">
+		<label for="group">All Groups</label>
+			<select class="form-control" class="group" name="group" 
+			ng-model="ProjectAttachController.groupId" size="10" ng-options="group.id as group.name for group in ProjectAttachController.groups._embedded.groups"></select>
+		</div>
+	</div>
+
+	<div class="col-xs-2" style="padding-top:3em;">
+		<div class="row row-spacer text-center">
+			<button class="btn btn-primary row-spacer-xs" ng-click="ProjectAttachController.attach()">&gt;&gt; Attach</button>
+		</div>
+		<div class="row text-center">
+			<button class="btn btn-primary" ng-click="ProjectAttachController.detach()">&lt;&lt; Detach</button>
+		</div>
+	</div>
+
+	<div class="col-xs-5">
+		<div class="form-group">
+		<label for="selected">Attached Groups</label>
+			<select class="form-control" class="selected" name="selected" 
+			ng-model="ProjectAttachController.selectedId" size="10" ng-options="group.id as group.name for group in ProjectAttachController.selected._embedded.groups"></select>
+		</div>
+	</div>
+
+</div>
+
+</form>
+

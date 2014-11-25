@@ -34,8 +34,14 @@
 			controller : 'GroupShowController',
 			controllerAs : 'GroupShowController',
 			resolve: {
-				template: function($stateParams, Group) {
-					return Group.read({id:$stateParams.id});
+				group: function($stateParams, Group) {
+					return Group.read({id:$stateParams.id}).$promise;
+				},
+				templates: function($stateParams, Group) {
+					return Group.templates({id:$stateParams.id}).$promise;
+				},
+				projects: function($stateParams, Group) {
+					return Group.projects({id:$stateParams.id}).$promise;
 				}
 			}
 		})
@@ -47,7 +53,7 @@
 			controllerAs : 'GroupEditController',
 			resolve: {
 				group: function($stateParams, Group) {
-					return Group.read({id:$stateParams.id});
+					return Group.read({id:$stateParams.id}).$promise;
 				}
 			}
 		})
@@ -59,7 +65,7 @@
 			controllerAs : 'GroupDeleteController',
 			resolve: {
 				group: function($stateParams, Group) {
-					return Group.read({id:$stateParams.id});
+					return Group.read({id:$stateParams.id}).$promise;
 				}
 			}
 		})
@@ -71,13 +77,13 @@
 			controllerAs : 'GroupAttachController',
 			resolve: {
 				group: function($stateParams, Group) {
-					return Group.read({id:$stateParams.id});
+					return Group.read({id:$stateParams.id}).$promise;
 				},
 				templates: function(Template) {
-					return Template.list();
+					return Template.list().$promise;
 				},
 				selected: function($stateParams, Group) {
-					return Group.templates({id:$stateParams.id});
+					return Group.templates({id:$stateParams.id}).$promise;
 				},
 			}
 		})
@@ -87,7 +93,8 @@
 	.service("Group", function($resource, api, HalUtils) {
 		var url = api + '/groups';
 		return $resource(url, {
-			id: '@id'
+			id: '@id',
+			templateId: '@templateId'
 		}, {
 			create: {method: 'POST', url: url, interceptor: HalUtils.create},
 			read: {method: 'GET', url: url + '/:id', transformResponse: HalUtils.read},
@@ -95,10 +102,21 @@
 			remove: {method: 'DELETE', url: url + '/:id'},
 			list: {method: 'GET', url: url, transformResponse: HalUtils.list},
 			templates: {method: 'GET', url: url + '/:id/templates', transformResponse: HalUtils.list},
+			projects: {method: 'GET', url: url + '/:id/projects', transformResponse: HalUtils.list},
+			attach: {method: 'PUT', url: url + '/:id/projects', headers: { 'Content-Type': 'text/uri-list;charset=utf-8' }},
+			detach: {method: 'DELETE', url: url + '/:id/projects/:projectId'}
 		});
 	})
 	
-	.controller('GroupCreateController', function() {
+	.controller('GroupCreateController', function(Group) {
+		var vm = this;
+		vm.group = new Group();
+		
+		vm.create = function() {
+			vm.group.$create(function(group) {
+				$state.go('^.show', {id: vm.group.id});
+			});
+		};
 	})
 	
 	.controller('GroupListController', function(Group) {
@@ -111,28 +129,26 @@
 		vm.group = new Group();
 		
 		vm.create = function() {
-			console.log('create', vm.group);
-			
 			vm.group.$create(function() {
 				$state.go('^.show', {id: vm.group.id});
 			});
 		};
 	})
 
-	.controller('GroupShowController', function($stateParams, $q, Group, Template) {
+	.controller('GroupShowController', function($stateParams, $q, group, templates, projects, Group, Template) {
 		var vm = this;
 		vm.sel = {};
-		
-		vm.group = Group.read({id:$stateParams.id});
-		vm.selected = Group.templates({id:$stateParams.id});
+		vm.group = group;
+		vm.templates = templates;
+		vm.projects = projects;
 		
 		vm.hasSelections = function() {
-			return _.has(vm.selected, '_embedded');
+			return _.has(vm.templates, '_embedded');
 		};
 		
-		vm.numSelections = function() {
-			if(angular.isDefined(vm.selected._embedded)) {
-				return vm.selected._embedded.templates.length;
+		vm.numTemplateSelections = function() {
+			if(angular.isDefined(vm.templates._embedded)) {
+				return vm.templates._embedded.templates.length;
 			} else {
 				return 0;
 			}

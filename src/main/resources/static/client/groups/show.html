@@ -17,7 +17,7 @@
 <p>There are {{GroupShowController.numSelections()}} attached templates.</p>
 
 <ul>
-<li ng-repeat="template in GroupShowController.selected._embedded.templates">
+<li ng-repeat="template in GroupShowController.templates._embedded.templates">
 {{template.name}}
 </li>
 </ul>

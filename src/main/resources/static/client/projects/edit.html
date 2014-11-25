@@ -1,0 +1,23 @@
+
+<div class="row">
+<div class="col-md-12">
+<a class="btn btn-primary" ui-sref="^.list">List</a>
+<a class="btn btn-primary" ui-sref="^.show({id:ProjectEditController.project.id})">Show</a>
+</div>
+</div>
+
+<div spec-header="">Edit Project: {{ProjectEditController.project.name}}</div>
+
+<div spec-instructions="">Instructions go here</div>
+
+<form ng-submit="ProjectEditController.update()" novalidate="novalidate">
+	
+	<div class="form-group">
+		<label for="name">Name</label>
+		<input type="text" id="name" name="name" class="form-control" ng-model="ProjectEditController.project.name" />
+	</div>
+	
+	<button type="submit" class="btn btn-success">Update</button>
+
+</form>
+

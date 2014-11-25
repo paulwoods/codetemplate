@@ -1,13 +1,10 @@
 package org.mrpaulwoods.codetemplate.group
 
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
-import javax.persistence.ManyToMany
-import javax.persistence.Table
+import javax.persistence.*
 
 import org.apache.commons.lang3.builder.ToStringBuilder
 import org.apache.commons.lang3.builder.ToStringStyle
+import org.mrpaulwoods.codetemplate.project.Project
 import org.mrpaulwoods.codetemplate.template.Template
 
 @Entity
@@ -23,8 +20,15 @@ class Group implements Serializable {
 	@ManyToMany(mappedBy="groups")
 	final List<Template> templates = new ArrayList<Template>()
 	
+	@ManyToMany
+	@JoinTable(
+		name="codetemplate_group_project",
+		joinColumns=[@JoinColumn(name="group_id", referencedColumnName="id")],
+		inverseJoinColumns=[@JoinColumn(name="project_id", referencedColumnName="id")])
+	final List<Project> projects = new ArrayList<Project>()
+
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE)
 	}
 
 }

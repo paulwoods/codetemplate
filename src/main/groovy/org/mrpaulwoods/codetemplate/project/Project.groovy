@@ -1,4 +1,4 @@
-package org.mrpaulwoods.codetemplate.template
+package org.mrpaulwoods.codetemplate.project
 
 import javax.persistence.*
 
@@ -7,25 +7,18 @@ import org.apache.commons.lang3.builder.ToStringStyle
 import org.mrpaulwoods.codetemplate.group.Group
 
 @Entity
-@Table(name="codetemplate_template")
-class Template implements Serializable {
+@Table(name="codetemplate_project")
+class Project implements Serializable {
 
 	@Id
 	@GeneratedValue
 	Long id
 	
-	@Column(length = 100)
 	String name
 	
-	@Lob
-	@Column
-	String content
+	String folder
 	
-	@ManyToMany
-	@JoinTable(
-		name="codetemplate_template_group",
-		joinColumns=[@JoinColumn(name="template_id", referencedColumnName="id")],
-		inverseJoinColumns=[@JoinColumn(name="group_id", referencedColumnName="id")])
+	@ManyToMany(mappedBy="projects")
 	final List<Group> groups = new ArrayList<Group>()
 	
 	public String toString() {

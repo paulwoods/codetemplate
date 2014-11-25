@@ -80,8 +80,7 @@
 			attach: {method: 'PUT', url: url + '/:id/groups', headers: { 'Content-Type': 'text/uri-list;charset=utf-8' }},
 			detach: {method: 'DELETE', url: url + '/:id/groups/:groupId'}
 		});
-	}) // {id:vm.selectedId, {groupId:vm.group.id}}
-	
+	})
 	
 	.controller('TemplateCreateController', function($state, Template) {
 		var vm = this;

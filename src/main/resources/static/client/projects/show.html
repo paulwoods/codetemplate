@@ -1,0 +1,24 @@
+
+<div class="row">
+<div class="col-md-12">
+<a class="btn btn-primary" ui-sref="^.list">List</a>
+<a class="btn btn-primary" ui-sref="^.edit({id:ProjectShowController.project.id})">Edit</a>
+<a class="btn btn-primary" ui-sref="^.attach({id:ProjectShowController.project.id})">Attach</a>
+<a class="btn btn-danger" ui-sref="^.delete({id:ProjectShowController.project.id})">Delete</a>
+</div>
+</div>
+
+<div spec-header="">Project: {{ProjectShowController.project.name}}</div>
+
+<div spec-instructions="">Instructions go here</div>
+
+<h4>Attached Groups</h4>
+
+<p>There are {{ProjectShowController.numSelections()}} attached groups.</p>
+
+<ul>
+<li ng-repeat="group in ProjectShowController.groups._embedded.groups">
+{{group.name}}
+</li>
+</ul>
+
