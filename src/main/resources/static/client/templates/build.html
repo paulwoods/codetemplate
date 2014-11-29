@@ -1,0 +1,39 @@
+
+<div class="row">
+<div class="col-md-12">
+<a class="btn btn-primary" ui-sref="^.show({id:TemplateBuildController.template.id})">Show</a>
+</div>
+</div>
+
+<div spec-header="">Build Template: {{TemplateBuildController.template.name}}</div>
+
+<div spec-instructions="">Instructions go here</div>
+
+<form>
+	<div class="form-group" ng-repeat="key in TemplateBuildController.keys">
+		<label for="{{key}}">{{key}}</label>
+		<input id="{{key}}" name="{{key}}" ng-model="TemplateBuildController.values[key]" class="form-control"/>
+	</div>
+	
+	<button class="btn btn-primary" ng-click="TemplateBuildController.build(TemplateBuildController.values)">Build</button>
+	<button ng-disabled="!TemplateBuildController.results" class="btn btn-success" ng-click="TemplateBuildController.download()">Download</button>
+</form>
+<br/>
+
+<div class="row">
+<div class="col-md-12">
+<h4>Build Results</h4>
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-12">
+<pre>{{TemplateBuildController.results.content}}</pre>
+</div>
+</div>
+
+	
+
+<br/>
+
+	

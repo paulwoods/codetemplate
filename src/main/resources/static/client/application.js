@@ -46,7 +46,6 @@
 			 */
 			list: function(jsonString) {
 				var json = JSON.parse(jsonString);
-				
 				if(!_.isEmpty(json)) {
 					_.each(json._embedded[Object.keys(json._embedded)[0]], parseId);
 				}

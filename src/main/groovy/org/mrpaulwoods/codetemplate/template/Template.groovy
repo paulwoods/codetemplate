@@ -31,5 +31,20 @@ class Template implements Serializable {
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE)
 	}
+	
+	List<String> keys() {
+		def matches = content =~ /\$\{(.*?)\}/
+		matches.collect { it[1] }.unique()
+	}
+	
+	String build(Map binding) {
+		String result = content
+		
+		binding.each { k, v ->
+			result = result.replaceAll('\\$\\{' + k + '\\}', v);
+		}
+		
+		result
+	}
 
 }

@@ -1,4 +1,4 @@
-(function(angular) {
+(function(angular, window) {
 	
 	'use strict'
 	
@@ -34,7 +34,7 @@
 			controllerAs : 'TemplateShowController',
 			resolve: {
 				template: function($stateParams, Template) {
-					return Template.read({id:$stateParams.id});
+					return Template.read({id:$stateParams.id}).$promise;
 				}
 			}
 		})
@@ -46,7 +46,7 @@
 			controllerAs : 'TemplateEditController',
 			resolve: {
 				template: function($stateParams, Template) {
-					return Template.read({id:$stateParams.id});
+					return Template.read({id:$stateParams.id}).$promise;
 				}
 			}
 		})
@@ -58,7 +58,19 @@
 			controllerAs : 'TemplateDeleteController',
 			resolve: {
 				template: function($stateParams, Template) {
-					return Template.read({id:$stateParams.id});
+					return Template.read({id:$stateParams.id}).$promise;
+				}
+			}
+		})
+
+		.state('templates.build', {
+			url : '/build/:id',
+			templateUrl : 'client/templates/build.html',
+			controller : 'TemplateBuildController',
+			controllerAs : 'TemplateBuildController',
+			resolve: {
+				template: function($stateParams, Template) {
+					return Template.read({id:$stateParams.id}).$promise;
 				}
 			}
 		})
@@ -78,7 +90,12 @@
 			list: {method: 'GET', url: url, transformResponse: HalUtils.list},
 			groups: {method: 'GET', url: url + '/:id/groups', transformResponse: HalUtils.list},
 			attach: {method: 'PUT', url: url + '/:id/groups', headers: { 'Content-Type': 'text/uri-list;charset=utf-8' }},
-			detach: {method: 'DELETE', url: url + '/:id/groups/:groupId'}
+			detach: {method: 'DELETE', url: url + '/:id/groups/:groupId'},
+			keys: {method: 'GET', url: url + '/:id/keys', transformResponse:function(jsonString) {
+				return  { keys: JSON.parse(jsonString) };
+			}},
+			build: {method: 'POST', url: url + '/:id/build'}
+			
 		});
 	})
 	
@@ -125,6 +142,24 @@
 		};
 	})
 	
+	.controller('TemplateBuildController', function($state, template, Template) {
+		var vm = this;
+		vm.template = template;
+		
+		Template.keys({id:template.id}, function(x) {
+			vm.keys = x.keys;
+		});
+		
+		vm.build = function(values) {
+			vm.results = Template.build({id:template.id}, values);
+		}
+		
+		vm.download = function() {
+			saveTextAs(vm.results.content, vm.template.name + '.txt');
+		};
+		
+	})
+	
 	;
 	
-})(angular);
+})(angular, window);
